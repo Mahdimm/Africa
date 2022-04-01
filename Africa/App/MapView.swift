@@ -26,12 +26,58 @@ struct MapView: View {
         // MARK: - NO2 basic map
         Map(coordinateRegion: $region, annotationItems: locations) { items in
             MapAnnotation(coordinate: items.location) {
-                Image("logo")
+                MapAnnotationView(location: items)
+            }
+        } //: MAP
+        .overlay(
+            HStack(alignment: .center, spacing: 12) {
+                
+                Image("compass")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 32, height: 32, alignment: .center)
-            }
-        }
+                .frame(width: 48, height: 48, alignment: .center)
+                
+                VStack(alignment: .leading, spacing: 3) {
+                    HStack {
+                        Text("Latitude:")
+                            .font(.footnote)
+                            .fontWeight(.bold)
+                            .foregroundColor(.accentColor)
+                        
+                        Spacer()
+                        
+                        Text("\(region.center.latitude)")
+                            .font(.footnote)
+                            .foregroundColor(.white)
+                    }
+                    
+                    Divider()
+                    
+                    HStack {
+                        Text("Longitude:")
+                            .font(.footnote)
+                            .fontWeight(.bold)
+                            .foregroundColor(.accentColor)
+                        
+                        Spacer()
+                        
+                        Text("\(region.center.longitude)")
+                            .font(.footnote)
+                            .foregroundColor(.white)
+                    }
+                } //: VStack
+                
+            } //: HStack
+            .padding(.vertical, 12)
+            .padding(.horizontal, 16)
+            .background(
+                Color.black
+                    .opacity(0.8)
+                    .cornerRadius(3)
+            )
+            .padding()
+            ,alignment: .top
+        )
     }
 }
 
